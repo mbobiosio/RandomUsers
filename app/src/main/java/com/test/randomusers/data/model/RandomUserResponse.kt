@@ -1,11 +1,13 @@
 package com.test.randomusers.data.model
 
 import android.os.Parcelable
+import androidx.room.Entity
 import kotlinx.android.parcel.Parcelize
 
 data class UserResponse(val results: List<User> = ArrayList(), val info: InfoResponse? = null)
 
 @Parcelize
+@Entity(tableName = "user")
 data class User(
     val gender: String? = null,
     val name: Name? = null,
@@ -20,6 +22,7 @@ data class User(
     val picture: Picture? = null,
     val nat: String? = null
 ) : Parcelable {
+
     val fullName = "${name?.first} ${name?.last}"
     val fullNameWithTitle = "${name?.title}. ${name?.first} ${name?.last}"
     val shortLocation = "${location?.city}, ${location?.country}"
@@ -58,4 +61,4 @@ data class Id(val name: String? = null, val value: String? = null) : Parcelable
 @Parcelize
 data class Picture(val large: String? = null, val medium: String? = null, val thumbnail: String? = null) : Parcelable
 
-data class InfoResponse(val results: Int = 0, val page: Int = 0)
+data class InfoResponse(val seed: String? = null, val results: Int = 0, val page: Int = 0)
