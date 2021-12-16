@@ -11,4 +11,7 @@
     <color name="color_primary">#0066FF</color>
     <color name="color_primary_dark">#0040A0</color>
     <color name="color_accent">#FF7040</color>
+
+    <color name="text_color">#333333</color>
+    <color name="off_white">#FAF9F9</color>
 </resources>

@@ -19,7 +19,11 @@ data class User(
     val id: Id? = null,
     val picture: Picture? = null,
     val nat: String? = null
-) : Parcelable
+) : Parcelable {
+    val fullName = "${name?.first} ${name?.last}"
+    val fullNameWithTitle = "${name?.title}. ${name?.first} ${name?.last}"
+    val shortLocation = "${location?.city}, ${location?.country}"
+}
 
 @Parcelize
 data class Name(val title: String? = null, val first: String? = null, val last: String? = null) : Parcelable
