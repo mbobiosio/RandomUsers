@@ -58,10 +58,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleLiveData"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLiveData"
+    implementation "androidx.fragment:fragment-ktx:$fragment"
 
     // Room
     implementation "androidx.room:room-runtime:$roomVersion"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$roomVersion"
 
     // Kotlin Extensions and Coroutines support for Room
@@ -92,6 +92,4 @@ dependencies {
     // Dagger-Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltJetpackVersion"
-    kapt "androidx.hilt:hilt-compiler:$hiltJetpackVersion"
 }
