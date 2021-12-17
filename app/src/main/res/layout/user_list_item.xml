@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:padding="8dp">
 
     <com.google.android.material.card.MaterialCardView
@@ -13,8 +14,9 @@
         android:checkable="true"
         android:clickable="true"
         android:focusable="true"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="12dp"
-        app:cardElevation="12dp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +49,7 @@
                 android:maxLines="2"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/normal_text_size"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/user_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
