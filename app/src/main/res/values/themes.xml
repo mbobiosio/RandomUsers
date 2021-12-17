@@ -13,4 +13,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--    Progressbar theme-->
+    <style name="AppTheme.Progressbar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/color_primary</item>
+    </style>
 </resources>

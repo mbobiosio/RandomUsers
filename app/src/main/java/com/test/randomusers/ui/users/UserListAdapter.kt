@@ -45,11 +45,11 @@ class UserListAdapter(private val onUserClicked: (User) -> Unit) : PagingDataAda
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<User>() {
             override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem.id?.name == newItem.id?.name
+                return oldItem.email == newItem.email
             }
 
             override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem.id?.name == newItem.id?.name
+                return oldItem.email == newItem.email
             }
         }
     }

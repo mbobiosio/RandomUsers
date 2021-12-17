@@ -79,7 +79,7 @@ object NetworkModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
-            .addLast(KotlinJsonAdapterFactory())
+            .add(KotlinJsonAdapterFactory())
             .build()
     }
 }

@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("")
+    @GET("api/?results=200")
     suspend fun getUsers(@Query("page") page: Int): Response<UserResponse>
 }

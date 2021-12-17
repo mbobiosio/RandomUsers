@@ -14,7 +14,7 @@ interface UserDao {
     @Query("select * from user")
     fun getAllUsers(): PagingSource<Int, User>
 
-    @Query("select * from user where id = :id")
+    @Query("select * from user where _id = :id")
     fun getAllUsersById(id: Int): User
 
     @Query("delete from user")

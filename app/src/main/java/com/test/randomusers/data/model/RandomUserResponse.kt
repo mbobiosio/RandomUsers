@@ -2,6 +2,9 @@ package com.test.randomusers.data.model
 
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
+import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
 data class UserResponse(val results: List<User> = ArrayList(), val info: InfoResponse? = null)
@@ -9,6 +12,8 @@ data class UserResponse(val results: List<User> = ArrayList(), val info: InfoRes
 @Parcelize
 @Entity(tableName = "user")
 data class User(
+    @PrimaryKey(autoGenerate = true)
+    val _id: Int = 0,
     val gender: String? = null,
     val name: Name? = null,
     val location: Location? = null,
@@ -18,19 +23,32 @@ data class User(
     val registered: Registered? = null,
     val phone: String? = null,
     val cell: String? = null,
-    val id: Id? = null,
+//    @Json(name = "id")
+//    val remoteId: Id? = null,
     val picture: Picture? = null,
     val nat: String? = null
 ) : Parcelable {
 
+    @Ignore
     val fullName = "${name?.first} ${name?.last}"
+
+    @Ignore
     val fullNameWithTitle = "${name?.title}. ${name?.first} ${name?.last}"
+
+    @Ignore
     val shortLocation = "${location?.city}, ${location?.country}"
 }
 
+/**
+ * @JsonClass(generateAdapter = true) is an annotation processor for Moshi’s Kotlin codegen support
+ * It generates an adapter to be used when saving [DataObject] in the DB
+ */
+
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Name(val title: String? = null, val first: String? = null, val last: String? = null) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Location(
     val street: Street? = null,
@@ -40,24 +58,31 @@ data class Location(
     val timezone: TimeZone? = null
 ) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Street(val number: Int = 0, val name: String? = null) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class TimeZone(val offset: String? = null, val description: String? = null) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Login(val username: String? = null) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Dob(val date: String? = null, val age: Int = 0) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Registered(val date: String? = null, val age: Int = 0) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Id(val name: String? = null, val value: String? = null) : Parcelable
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Picture(val large: String? = null, val medium: String? = null, val thumbnail: String? = null) : Parcelable
 

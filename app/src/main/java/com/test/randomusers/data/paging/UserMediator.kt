@@ -1,5 +1,6 @@
 package com.test.randomusers.data.paging
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -26,6 +27,7 @@ class UserMediator @Inject constructor(
             is MediatorResult.Success -> return pageKeyData
             else -> pageKeyData as Int
         }
+        Log.e("page", page.toString())
 
         try {
             val response = apiService.getUsers(page)
@@ -40,7 +42,7 @@ class UserMediator @Inject constructor(
                 val prevKey = if (page == DEFAULT_PAGE_INDEX) null else page - 1
                 val nextKey = if (isEndOfList) null else page + 1
                 val keys = response.body()?.results?.map {
-                    RemoteKeys(id = it.id?.value, prevKey = prevKey, nextKey = nextKey)
+                    RemoteKeys(email = it.email!!, prevKey = prevKey, nextKey = nextKey)
                 }
                 if (keys != null)
                     randomUserDatabase.remoteKeysDao().insertAllRemoteKeys(keys)
@@ -60,35 +62,26 @@ class UserMediator @Inject constructor(
      */
     private suspend fun getKeyPageData(loadType: LoadType, state: PagingState<Int, User>): Any? {
         return when (loadType) {
-            LoadType.REFRESH -> {
-                val remoteKeys = getClosestRemoteKey(state)
-                remoteKeys?.nextKey?.minus(1) ?: DEFAULT_PAGE_INDEX
-            }
-            LoadType.APPEND -> {
-                val remoteKeys = getLastRemoteKey(state)
-                    ?: throw InvalidObjectException("Remote key should not be null for $loadType")
-                remoteKeys.nextKey
-            }
             LoadType.PREPEND -> {
+                Log.e("Type", "Prepend")
                 val remoteKeys = getFirstRemoteKey(state)
                     ?: throw InvalidObjectException("Invalid state, key should not be null")
                 //end of list condition reached
                 remoteKeys.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                 remoteKeys.prevKey
             }
-        }
-    }
-
-    /**
-     * get the last remote key inserted which had the data
-     */
-    private suspend fun getLastRemoteKey(state: PagingState<Int, User>): RemoteKeys? {
-        return state.pages
-            .lastOrNull { it.data.isNotEmpty() }
-            ?.data?.lastOrNull()
-            ?.let { user ->
-                user.let { it.id?.value?.let { id -> randomUserDatabase.remoteKeysDao().getRemoteKeys(id) } }
+            LoadType.APPEND -> {
+                Log.e("Type", "Append")
+                val remoteKeys = getLastRemoteKey(state)
+                    ?: throw InvalidObjectException("Remote key should not be null for $loadType")
+                remoteKeys.nextKey
             }
+            LoadType.REFRESH -> {
+                Log.e("Type", "Refresh")
+                val remoteKeys = getClosestRemoteKey(state)
+                remoteKeys?.nextKey?.minus(1) ?: DEFAULT_PAGE_INDEX
+            }
+        }
     }
 
     /**
@@ -99,7 +92,19 @@ class UserMediator @Inject constructor(
             .firstOrNull { it.data.isNotEmpty() }
             ?.data?.firstOrNull()
             ?.let { user ->
-                user.let { it.id?.value?.let { id -> randomUserDatabase.remoteKeysDao().getRemoteKeys(id) } }
+                user.let { it.email?.let { email -> randomUserDatabase.remoteKeysDao().getRemoteKeys(email) } }
+            }
+    }
+
+    /**
+     * get the last remote key inserted which had the data
+     */
+    private suspend fun getLastRemoteKey(state: PagingState<Int, User>): RemoteKeys? {
+        return state.pages
+            .lastOrNull { it.data.isNotEmpty() }
+            ?.data?.lastOrNull()
+            ?.let { user ->
+                user.let { it.email?.let { id -> randomUserDatabase.remoteKeysDao().getRemoteKeys(id) } }
             }
     }
 
@@ -108,8 +113,8 @@ class UserMediator @Inject constructor(
      */
     private suspend fun getClosestRemoteKey(state: PagingState<Int, User>): RemoteKeys? {
         return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.id.let { id ->
-                id?.value?.let { randomUserDatabase.remoteKeysDao().getRemoteKeys(it) }
+            state.closestItemToPosition(position)?.email.let { email ->
+                email?.let { randomUserDatabase.remoteKeysDao().getRemoteKeys(it) }
             }
         }
     }

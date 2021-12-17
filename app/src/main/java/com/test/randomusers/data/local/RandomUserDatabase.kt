@@ -9,7 +9,7 @@ import com.test.randomusers.data.model.RemoteKeys
 import com.test.randomusers.data.model.User
 
 
-@Database(entities = [User::class, RemoteKeys::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, RemoteKeys::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class RandomUserDatabase : RoomDatabase() {
 
