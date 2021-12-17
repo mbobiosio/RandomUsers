@@ -3,7 +3,6 @@ package com.test.randomusers.di.module
 import android.content.Context
 import androidx.room.Room
 import com.test.randomusers.data.local.RandomUserDatabase
-import com.test.randomusers.data.local.dao.RemoteKeysDao
 import com.test.randomusers.data.local.dao.UserDao
 import com.test.randomusers.utils.AppConstants.DATABASE_NAME
 import dagger.Module
@@ -36,9 +35,4 @@ object DatabaseModule {
     @Provides
     fun provideUserDao(randomUserDatabase: RandomUserDatabase):
             UserDao = randomUserDatabase.userDao()
-
-    @Singleton
-    @Provides
-    fun provideRemoteKeysDao(randomUserDatabase: RandomUserDatabase):
-            RemoteKeysDao = randomUserDatabase.remoteKeysDao()
 }

@@ -1,10 +1,12 @@
 package com.test.randomusers.data.repository
 
-import androidx.paging.PagingData
+import androidx.lifecycle.LiveData
 import com.test.randomusers.data.model.User
-import kotlinx.coroutines.flow.Flow
+import com.test.randomusers.data.networkresource.NetworkStatus
 
 interface UserRepository {
 
-    suspend fun getUsersFlowDb(): Flow<PagingData<User>>?
+    suspend fun getUsersFromRemote(): LiveData<NetworkStatus<List<User>>>
+
+    suspend fun getUserByIdFromDb(email: String?): LiveData<User>
 }

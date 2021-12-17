@@ -2,8 +2,8 @@ package com.test.randomusers.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -11,7 +11,7 @@ import com.test.randomusers.data.model.User
 import com.test.randomusers.databinding.UserListItemBinding
 import com.test.randomusers.utils.glide.GlideApp
 
-class UserListAdapter(private val onUserClicked: (User) -> Unit) : PagingDataAdapter<User, UserListAdapter.ViewHolder>(diffUtil) {
+class UserListAdapter(private val onUserClicked: (User) -> Unit) : ListAdapter<User, UserListAdapter.ViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(UserListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))

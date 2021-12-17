@@ -1,7 +1,10 @@
 package com.test.randomusers.data.local.dao
 
-import androidx.paging.PagingSource
-import androidx.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.test.randomusers.data.model.User
 
 @Dao
@@ -10,13 +13,12 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllUsers(users: List<User>)
 
-    @Transaction
     @Query("select * from user")
-    fun getAllUsers(): PagingSource<Int, User>
+    suspend fun getAllUsers(): List<User>?
 
-    @Query("select * from user where _id = :id")
-    fun getAllUsersById(id: Int): User
+    @Query("select * from user")
+    fun getAllUsersLiveData(): LiveData<List<User>>
 
-    @Query("delete from user")
-    fun clearAllUsers()
+    @Query("select * from user where email = :email")
+    fun getUserById(email: String?): LiveData<User>
 }
