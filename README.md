@@ -24,8 +24,9 @@ This is a single module app which uses the MVVM architectural design pattern wit
 ### Testing
 Testing is done with the JUnit4 testing framework, and with Google Truth for making assertions. Mockk is used to provide mocks in some of the tests. The UI test is done using Espresso Recorder.
 
-#### If I had more time, I should
+### If I had more time, I should
 - Fix issues with the Android Studio JDK dependencies on MacBook M1.
 - Improve running Unit test and its coverage
 - Write more and running UI tests
 - Improve the UI/UX
+- Implement the data loading/display using pagination
