@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
+import com.test.randomusers.utils.Utils.convertDateToRegisteredFormat
+import com.test.randomusers.utils.toSentenceCase
 import kotlinx.android.parcel.Parcelize
 
 data class UserResponse(val results: List<User> = ArrayList(), val info: InfoResponse? = null)
@@ -23,8 +25,6 @@ data class User(
     val registered: Registered? = null,
     val phone: String? = null,
     val cell: String? = null,
-//    @Json(name = "id")
-//    val remoteId: Id? = null,
     val picture: Picture? = null,
     val nat: String? = null
 ) : Parcelable {
@@ -37,6 +37,9 @@ data class User(
 
     @Ignore
     val shortLocation = "${location?.city}, ${location?.country}"
+
+    @Ignore
+    val genderAndAge = "${gender?.toSentenceCase()} | ${dob?.dob}"
 }
 
 /**
@@ -56,11 +59,18 @@ data class Location(
     val state: String? = null,
     val country: String? = null,
     val timezone: TimeZone? = null
-) : Parcelable
+) : Parcelable {
+
+    @Ignore
+    val fullLocation = "${street?.street}, $city, $state, $country"
+}
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class Street(val number: Int = 0, val name: String? = null) : Parcelable
+data class Street(val number: Int = 0, val name: String? = null) : Parcelable {
+    @Ignore
+    val street = "$number, $name"
+}
 
 @JsonClass(generateAdapter = true)
 @Parcelize
@@ -72,15 +82,17 @@ data class Login(val username: String? = null) : Parcelable
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class Dob(val date: String? = null, val age: Int = 0) : Parcelable
+data class Dob(val date: String? = null, val age: Int = 0) : Parcelable {
+    @Ignore
+    val dob = if (age <= 1) "$age yr" else "$age yrs"
+}
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class Registered(val date: String? = null, val age: Int = 0) : Parcelable
-
-@JsonClass(generateAdapter = true)
-@Parcelize
-data class Id(val name: String? = null, val value: String? = null) : Parcelable
+data class Registered(val date: String? = null, val age: Int = 0) : Parcelable {
+    @Ignore
+    val userSince = "${date?.let { convertDateToRegisteredFormat(it) }} (${if (age <= 1) "$age yr" else "$age yrs"})"
+}
 
 @JsonClass(generateAdapter = true)
 @Parcelize

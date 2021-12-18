@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.test.randomusers.R
 import com.test.randomusers.data.model.User
@@ -72,7 +73,7 @@ class UserListFragment : Fragment() {
 
     private fun onUserClicked(user: User) {
         userListSaveState = binding.userRecyclerview.layoutManager?.onSaveInstanceState()
-        //findNavController().navigate(UserListFragmentDirections.toUserDetailsFragment(user))
+        findNavController().navigate(UserListFragmentDirections.toUserDetailsFragment(user))
     }
 
     private fun showNoInternet() {

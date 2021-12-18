@@ -73,16 +73,6 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromId(id: Id): String {
-        return Moshi.Builder().build().adapter(Id::class.java).toJson(id)
-    }
-
-    @TypeConverter
-    fun toId(string: String): Id {
-        return Moshi.Builder().build().adapter(Id::class.java).fromJson(string)!!
-    }
-
-    @TypeConverter
     fun fromPicture(picture: Picture): String {
         return Moshi.Builder().build().adapter(Picture::class.java).toJson(picture)
     }
