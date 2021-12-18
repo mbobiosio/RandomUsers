@@ -16,7 +16,7 @@
 
     <!-- Progressbar theme-->
     <style name="AppTheme.Progressbar" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:indeterminateTint">@color/color_primary</item>
+        <item name="android:indeterminateTint">@color/app_blue</item>
     </style>
 
     <!-- AppBar theme-->
