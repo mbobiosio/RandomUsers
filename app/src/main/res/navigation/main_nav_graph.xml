@@ -13,7 +13,11 @@
 
         <action
             android:id="@+id/to_user_details_fragment"
-            app:destination="@id/user_details_fragment" />
+            app:destination="@id/user_details_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 
     <fragment
