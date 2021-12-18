@@ -15,7 +15,6 @@ import com.test.randomusers.R
 import com.test.randomusers.data.model.User
 import com.test.randomusers.data.networkresource.NetworkStatus
 import com.test.randomusers.databinding.FragmentUserListBinding
-import com.test.randomusers.utils.Utils.hasInternetConnection
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +33,7 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerview()
-        fetchRandomUsers()
+        viewModel.fetchUsers()
         setObserver()
     }
 
@@ -48,7 +47,13 @@ class UserListFragment : Fragment() {
             when (it) {
                 is NetworkStatus.Loading -> {
                     showLoading()
-                    userListAdapter.submitList(it.data)
+                    if (it.data?.isEmpty()!!) {
+                        showLoading()
+                        showNoInternet()
+                    } else {
+                        hideLoading()
+                        userListAdapter.submitList(it.data)
+                    }
                 }
                 is NetworkStatus.Success -> {
                     hideLoading()
@@ -56,18 +61,9 @@ class UserListFragment : Fragment() {
                 }
                 is NetworkStatus.Error -> {
                     hideLoading()
-                    userListAdapter.submitList(it.data)
                     it.message?.let { errorMessage -> showSnackBar(errorMessage) }
                 }
             }
-        }
-    }
-
-    private fun fetchRandomUsers() {
-        if (hasInternetConnection(requireContext())) {
-            viewModel.fetchUsers()
-        } else {
-            showNoInternet()
         }
     }
 
@@ -86,7 +82,7 @@ class UserListFragment : Fragment() {
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.color_accent))
             .setAction(getString(R.string.retry)) {
-                fetchRandomUsers()
+                viewModel.fetchUsers()
             }.show()
     }
 

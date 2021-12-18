@@ -20,18 +20,7 @@ class UserListViewModel @Inject constructor(
         }
     }
 
-    private val _userLiveData = MutableLiveData<String>()
-    val userLiveData = _userLiveData.switchMap {
-        liveData {
-            emitSource(repository.getUserByIdFromDb(it))
-        }
-    }
-
     fun fetchUsers() {
         _userListLiveData.value = Unit
-    }
-
-    fun getUser(email: String) {
-        _userLiveData.value = email
     }
 }

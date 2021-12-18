@@ -45,11 +45,11 @@ class UserListAdapter(val onUserClicked: (user: User) -> Unit) : ListAdapter<Use
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<User>() {
             override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem.email == newItem.email
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-                return oldItem.email == newItem.email
+                return oldItem == newItem
             }
         }
     }
