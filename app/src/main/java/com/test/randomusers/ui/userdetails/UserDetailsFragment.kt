@@ -38,8 +38,6 @@ class UserDetailsFragment : Fragment() {
             // load the image
             GlideApp.with(requireContext()).load(user?.picture?.large)
                 .circleCrop()
-                //.apply(RequestOptions.circleCropTransform())
-                //.transform(CenterInside(), RoundedCorners(200))
                 .into(userAvatar)
 
             userFullName.text = user?.fullNameWithTitle
