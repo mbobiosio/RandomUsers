@@ -19,16 +19,18 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
 
     override suspend fun getUsersFromRemote() = liveData(dispatcherProvider.io(), LOADING_TIMEOUT) {
-        emit(NetworkStatus.Loading(randomUserDatabase?.userDao()?.getAllUsers()))
+        val dataFromDb = randomUserDatabase?.userDao()?.getAllUsers()
+        emit(NetworkStatus.Loading(dataFromDb))
 
-        val response = safeApiCall { apiService.getUsers(URL) }
-        if (response is NetworkStatus.Success) {
-            response.data?.results?.let {
-                randomUserDatabase?.userDao()?.clearAllUsers()
-                randomUserDatabase?.userDao()?.insertAllUsers(it)
-                emit(NetworkStatus.Success(randomUserDatabase?.userDao()?.getAllUsers()))
-            }
-        } else emit(NetworkStatus.Error(response.message, randomUserDatabase?.userDao()?.getAllUsers()))
+        if (dataFromDb.isNullOrEmpty()) {
+            val response = safeApiCall { apiService.getUsers(URL) }
+            if (response is NetworkStatus.Success) {
+                response.data?.results?.let {
+                    randomUserDatabase?.userDao()?.insertAllUsers(it)
+                    emit(NetworkStatus.Success(randomUserDatabase?.userDao()?.getAllUsers()))
+                }
+            } else emit(NetworkStatus.Error(response.message, randomUserDatabase?.userDao()?.getAllUsers()))
+        }
     }
 
     /**

@@ -15,6 +15,7 @@ import com.test.randomusers.R
 import com.test.randomusers.data.model.User
 import com.test.randomusers.data.networkresource.NetworkStatus
 import com.test.randomusers.databinding.FragmentUserListBinding
+import com.test.randomusers.utils.Utils.hasInternetConnection
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +48,7 @@ class UserListFragment : Fragment() {
             when (it) {
                 is NetworkStatus.Loading -> {
                     showLoading()
-                    if (it.data?.isEmpty()!!) {
+                    if (it.data?.isEmpty()!! && !hasInternetConnection(requireContext())) {
                         showLoading()
                         showNoInternet()
                     } else {
