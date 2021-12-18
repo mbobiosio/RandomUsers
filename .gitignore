@@ -15,4 +15,9 @@
 .cxx
 local.properties
 *.apk
+
+# ignore all files
 *.json
+
+# except json files in test folder
+!app/src/test/**/*.json

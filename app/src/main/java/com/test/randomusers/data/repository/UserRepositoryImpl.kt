@@ -6,6 +6,8 @@ import com.test.randomusers.data.local.RandomUserDatabase
 import com.test.randomusers.data.networkresource.NetworkStatus
 import com.test.randomusers.data.networkresource.safeApiCall
 import com.test.randomusers.data.remote.ApiService
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 private const val LOADING_TIMEOUT = 20_000L
@@ -28,6 +30,14 @@ class UserRepositoryImpl @Inject constructor(
             }
         } else emit(NetworkStatus.Error(response.message, randomUserDatabase?.userDao()?.getAllUsers()))
     }
+
+    /**
+     * For testing ONLY
+     */
+    override suspend fun getUser(email: String) = flow {
+        val user = randomUserDatabase?.userDao()?.getUserByEmail(email)
+        emit(user)
+    }.flowOn(dispatcherProvider.default())
 
     companion object {
         const val URL = "https://randomuser.me/api/?results=200"

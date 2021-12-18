@@ -11,6 +11,7 @@ import kotlinx.android.parcel.Parcelize
 
 data class UserResponse(val results: List<User> = ArrayList(), val info: InfoResponse? = null)
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 @Entity(tableName = "user")
 data class User(

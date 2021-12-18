@@ -1,0 +1,58 @@
+[
+  {
+    "gender": "female",
+    "name": {
+      "title": "Ms",
+      "first": "Jessika",
+      "last": "Nickel"
+    },
+    "location": {
+      "street": {
+        "number": 8270,
+        "name": "Schützenstraße"
+      },
+      "city": "Bretten",
+      "state": "Bayern",
+      "country": "Germany",
+      "postcode": 22644,
+      "coordinates": {
+        "latitude": "-43.0596",
+        "longitude": "24.6095"
+      },
+      "timezone": {
+        "offset": "-1:00",
+        "description": "Azores, Cape Verde Islands"
+      }
+    },
+    "email": "jessika.nickel@example.com",
+    "login": {
+      "uuid": "89f6de21-227b-4a16-a485-b93085507740",
+      "username": "goldenpeacock660",
+      "password": "killkill",
+      "salt": "iBTOezPs",
+      "md5": "f1f50fbd5608c66d2cb76ecf697caa3c",
+      "sha1": "9eadcd6534d3daf45f221fb2e137ae480ac6a512",
+      "sha256": "a94eaeeb456fe3bff3b732311871b097c6c9a342813713534ad042476130208a"
+    },
+    "dob": {
+      "date": "1955-09-28T09:24:00.170Z",
+      "age": 66
+    },
+    "registered": {
+      "date": "2002-06-07T10:00:37.688Z",
+      "age": 19
+    },
+    "phone": "0330-4420083",
+    "cell": "0171-6050874",
+    "id": {
+      "name": "",
+      "value": null
+    },
+    "picture": {
+      "large": "https://randomuser.me/api/portraits/women/50.jpg",
+      "medium": "https://randomuser.me/api/portraits/med/women/50.jpg",
+      "thumbnail": "https://randomuser.me/api/portraits/thumb/women/50.jpg"
+    },
+    "nat": "DE"
+  }
+]
